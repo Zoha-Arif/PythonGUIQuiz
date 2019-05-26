@@ -29,26 +29,31 @@ text1.place(relx=0.3, rely=0.3, relwidth=0.4, relheight=0.4)
 #QuestionOne = tk.Entry(root)
 #QuestionOne.pack()
 
-
-i = 0 
-def startQuiz(): 
-    if (i != 24):
+global i
+i = 0
+def startQuiz():
+    if (i < 24):
         print("Quiz Started")
+        print(i)
         frameNumber = "frame" + str(i)
         frameNumber = tk.Frame(root, bg="#b5d6b2")
         frameNumber.place(relwidth=1, relheight=1)
-        for x in range(25):
-            factorOne = random.randint(1, 13)
-        for x in range(25):
-            factorTwo = random.randint(1, 13)
+        factorOne = random.randint(1, 12)
+        factorTwo = random.randint(1, 12)
         
         var = tk.StringVar()
         Question = tk.Message(frameNumber, textvariable=var, bg="#b5d6b2", width=500, font="oemfixed")
         var.set(str(factorOne) + "x" + str(factorTwo))
         Question.place(relx=0.4)
         submitButton = tk.Button(root, text="S U B M I T", bg="#f3c261", font=("oemfixed", 10, "bold"), bd=2, height=1, width=20, padx=0, pady=0, command=startQuiz)
-        submitButton.pack()
-    ++i
+        submitButton.place(relx=0.4, rely=0.4)
+        i+=1
+    else:
+        print("Quiz Ended")
+        frame30 = tk.Frame(root, bg="white")
+        frame30.place(relwidth=1, relheight=1)
+     
+   
 
 submitButton = tk.Button(root, text="S U B M I T", bg="#f3c261", font=("oemfixed", 10, "bold"), bd=2, height=1, width=20, padx=0, pady=0, command=startQuiz)
    
