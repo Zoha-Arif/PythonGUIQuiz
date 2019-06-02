@@ -53,6 +53,7 @@ def startQuiz():
         print(UserAnswerList)
         print(CorrectAnswerList)
         startQuiz()
+    frameNumber.after(4000, getUserAnswer)
     CorrectAnswer = str(factorOne * factorTwo)
     CorrectAnswerList.append(CorrectAnswer)
     if (len(CorrectAnswerList) <= 25):
@@ -71,7 +72,7 @@ def startQuiz():
         
         QuizScore = (FinalScore / 25) * 100 
         var = tk.StringVar()
-        welcomeMessage = tk.Message(root, textvariable=var, bg="white", width=500, font="oemfixed", font = 20)
+        welcomeMessage = tk.Message(root, textvariable=var, bg="white", width=500, font="oemfixed")
         var.set("Whelp, you got a " + str(QuizScore) + "%")
         welcomeMessage.place(x=800, y=100)
 
