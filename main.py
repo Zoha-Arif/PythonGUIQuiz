@@ -31,35 +31,53 @@ text1.place(relx=0.3, rely=0.3, relwidth=0.4, relheight=0.4)
 
 global i
 i = 0
+CorrectAnswerList = []
+UserAnswerList = []
+
 def startQuiz():
-    if (i < 24):
-        print("Quiz Started")
-        print(i)
-        frameNumber = "frame" + str(i)
-        frameNumber = tk.Frame(root, bg="#b5d6b2")
-        frameNumber.place(relwidth=1, relheight=1)
-        factorOne = random.randint(1, 12)
-        factorTwo = random.randint(1, 12)
-        
-        var = tk.StringVar()
-        Question = tk.Message(frameNumber, textvariable=var, bg="#b5d6b2", width=500, font="oemfixed")
-        var.set(str(factorOne) + "x" + str(factorTwo))
-        Question.place(relx=0.4)
-        submitButton = tk.Button(root, text="S U B M I T", bg="#f3c261", font=("oemfixed", 10, "bold"), bd=2, height=1, width=20, padx=0, pady=0, command=startQuiz)
+    #frameNumber = "frame" + str(1)
+    frameNumber = tk.Frame(root, bg="#b5d6b2")
+    frameNumber.place(relwidth=1, relheight=1)
+    factorOne = random.randint(1, 12)
+    factorTwo = random.randint(1, 12)
+    var = tk.StringVar()
+    Question = tk.Message(frameNumber, textvariable=var, bg="#b5d6b2", width=500, font="oemfixed")
+    Question.place(relx=0.4)
+    var.set(str(factorOne) + "x" + str(factorTwo))
+    global AnswerBox
+    AnswerBox = tk.Entry(root)
+    AnswerBox.place(x=800, y=100)
+    def getUserAnswer(): 
+        UserAnswer = AnswerBox.get()
+        UserAnswerList.append(UserAnswer)
+        print(UserAnswerList)
+        print(CorrectAnswerList)
+        startQuiz()
+    CorrectAnswer = str(factorOne * factorTwo)
+    CorrectAnswerList.append(CorrectAnswer)
+    if (len(CorrectAnswerList) <= 25):
+        submitButton = tk.Button(root, text="A N S W E R", bg="#f3c261", font=("oemfixed", 10, "bold"), bd=2, height=1, width=20, padx=0, pady=0, command=getUserAnswer)
         submitButton.place(relx=0.4, rely=0.4)
-        i+=1
-    else:
-        print("Quiz Ended")
+    else: 
         frame30 = tk.Frame(root, bg="white")
         frame30.place(relwidth=1, relheight=1)
-     
-   
+        FinalScore = 0; 
+        i = 0
+        while i < 25:
+            if (CorrectAnswerList[i] == UserAnswerList[i]): 
+                FinalScore = FinalScore + 1 
+                print(FinalScore)
+            i = i + 1
+        
+        QuizScore = (FinalScore / 25) * 100 
+        var = tk.StringVar()
+        welcomeMessage = tk.Message(root, textvariable=var, bg="white", width=500, font="oemfixed", font = 20)
+        var.set("Whelp, you got a " + str(QuizScore) + "%")
+        welcomeMessage.place(x=800, y=100)
 
-submitButton = tk.Button(root, text="S U B M I T", bg="#f3c261", font=("oemfixed", 10, "bold"), bd=2, height=1, width=20, padx=0, pady=0, command=startQuiz)
-   
-#Use command to do something when the button is clicked!
+        
 
-#submitButton = tk.Button(root, image= tk.PhotoImage(file="start.png"), bg="#b5d6b2", bd=2, height=10, width=20, padx=0, pady=0)
+submitButton = tk.Button(root, text="S T A R T", bg="#f3c261", font=("oemfixed", 10, "bold"), bd=2, height=1, width=20, padx=0, pady=0, command=startQuiz)
 submitButton.pack()
 
     
